@@ -1,0 +1,221 @@
+object frmMain: TfrmMain
+  Left = 453
+  Height = 345
+  Top = 271
+  Width = 481
+  Caption = 'Serial Arduino Test'
+  ClientHeight = 345
+  ClientWidth = 481
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '1.4.4.0'
+  object btnConnect: TButton
+    Left = 8
+    Height = 25
+    Top = 312
+    Width = 83
+    Anchors = [akLeft, akBottom]
+    Caption = 'Connect'
+    OnClick = btnConnectClick
+    TabOrder = 0
+  end
+  object btnDisconnect: TButton
+    Left = 96
+    Height = 25
+    Top = 312
+    Width = 83
+    Anchors = [akLeft, akBottom]
+    Caption = 'Disconnect'
+    TabOrder = 1
+  end
+  object btnRefresh: TButton
+    Left = 184
+    Height = 25
+    Top = 312
+    Width = 91
+    Anchors = [akLeft, akBottom]
+    Caption = 'Refresh'
+    OnClick = btnRefreshClick
+    TabOrder = 2
+  end
+  object pnlConnect: TPanel
+    Left = 8
+    Height = 170
+    Top = 8
+    Width = 467
+    Anchors = [akTop, akLeft, akRight]
+    ClientHeight = 170
+    ClientWidth = 467
+    TabOrder = 3
+    object cmbCommPorts: TComboBox
+      Left = 104
+      Height = 23
+      Top = 8
+      Width = 353
+      Anchors = [akTop, akLeft, akRight]
+      ItemHeight = 15
+      TabOrder = 0
+      Text = 'cmbCommPorts'
+    end
+    object Label1: TLabel
+      Left = 13
+      Height = 15
+      Top = 12
+      Width = 85
+      Caption = 'Select Com Port'
+      ParentColor = False
+    end
+    object cmbCommSpeed: TComboBox
+      Left = 104
+      Height = 23
+      Top = 40
+      Width = 353
+      Anchors = [akTop, akLeft, akRight]
+      ItemHeight = 15
+      TabOrder = 1
+      Text = 'cmbCommSpeed'
+    end
+    object lblSelectSpeed: TLabel
+      Left = 32
+      Height = 15
+      Top = 44
+      Width = 66
+      Caption = 'Select Speed'
+      ParentColor = False
+    end
+    object cmbCommParity: TComboBox
+      Left = 104
+      Height = 23
+      Top = 104
+      Width = 353
+      Anchors = [akTop, akLeft, akRight]
+      ItemHeight = 15
+      TabOrder = 2
+      Text = 'cmbCommParity'
+    end
+    object lblSelectParity: TLabel
+      Left = 34
+      Height = 15
+      Top = 108
+      Width = 64
+      Caption = 'Select Parity'
+      ParentColor = False
+    end
+    object cmbCommDataBits: TComboBox
+      Left = 104
+      Height = 23
+      Top = 72
+      Width = 353
+      Anchors = [akTop, akLeft, akRight]
+      ItemHeight = 15
+      TabOrder = 3
+      Text = 'cmbCommDataBits'
+    end
+    object lblSelectDataBits: TLabel
+      Left = 18
+      Height = 15
+      Top = 76
+      Width = 80
+      Caption = 'Select Data Bits'
+      ParentColor = False
+    end
+    object lblSelectStopBits: TLabel
+      Left = 18
+      Height = 15
+      Top = 140
+      Width = 80
+      Caption = 'Select Stop Bits'
+      ParentColor = False
+    end
+    object cmbCommStopBits: TComboBox
+      Left = 104
+      Height = 23
+      Top = 136
+      Width = 353
+      Anchors = [akTop, akLeft, akRight]
+      ItemHeight = 15
+      TabOrder = 4
+      Text = 'cmbCommStopBits'
+    end
+  end
+  object Panel1: TPanel
+    Left = 9
+    Height = 120
+    Top = 184
+    Width = 466
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    ClientHeight = 120
+    ClientWidth = 466
+    TabOrder = 4
+    object trkRed: TTrackBar
+      Left = 48
+      Height = 25
+      Top = 15
+      Width = 408
+      Frequency = 10
+      Max = 255
+      OnChange = trkGreenChange
+      Position = 0
+      Anchors = [akTop, akLeft, akRight]
+      TabOrder = 0
+    end
+    object Shape1: TShape
+      Left = 17
+      Height = 25
+      Top = 12
+      Width = 23
+      Brush.Color = clRed
+      Shape = stCircle
+    end
+    object Shape2: TShape
+      Left = 17
+      Height = 25
+      Top = 47
+      Width = 23
+      Brush.Color = clGreen
+      Shape = stCircle
+    end
+    object trkGreen: TTrackBar
+      Left = 48
+      Height = 25
+      Top = 50
+      Width = 408
+      Frequency = 10
+      Max = 255
+      OnChange = trkGreenChange
+      Position = 0
+      Anchors = [akTop, akLeft, akRight]
+      TabOrder = 1
+    end
+    object Shape3: TShape
+      Left = 17
+      Height = 25
+      Top = 82
+      Width = 23
+      Brush.Color = clBlue
+      Shape = stCircle
+    end
+    object trkBlue: TTrackBar
+      Left = 48
+      Height = 25
+      Top = 85
+      Width = 408
+      Frequency = 10
+      Max = 255
+      OnChange = trkGreenChange
+      Position = 0
+      Anchors = [akTop, akLeft, akRight]
+      TabOrder = 2
+    end
+  end
+  object btnClose: TButton
+    Left = 392
+    Height = 25
+    Top = 312
+    Width = 83
+    Anchors = [akRight, akBottom]
+    Caption = 'Close'
+    OnClick = btnCloseClick
+    TabOrder = 5
+  end
+end
