@@ -20,7 +20,7 @@
 const int cardArrSize = 10;
 const int cardSize    = 4;
 byte cardArr[cardArrSize][cardSize];
-byte masterCard[cardSize] = {29,156,87,37};
+byte masterCard[cardSize] = {29,156,78,37};
 byte readCard[cardSize];
 byte cardsStored = 0;
 
@@ -37,12 +37,20 @@ unsigned long StateWaitTime;
 int readCardState()
 {
   int index;
-  boolean Match = true;
 
+  Serial.print("Card Data - ");
   for(index = 0; index < 4; index++)
   {
     readCard[index] = mfrc522.uid.uidByte[index];
+
+    
+    Serial.print(readCard[index]);
+    if (index < 3)
+    {
+      Serial.print(",");
+    }
   }
+  Serial.println(" ");
 
   //Check Master Card
   if ((memcmp(readCard, masterCard, 4)) == 0)
@@ -55,25 +63,15 @@ int readCardState()
     return STATE_SCAN_INVALID;
   }
 
-  Match = false;
-
   for(index = 0; index < cardsStored; index++)
   {
     if ((memcmp(readCard, cardArr[index], 4)) == 0)
     {
-      Match = true;
-      break;
+      return STATE_SCAN_VALID;
     }
   }
 
-  if (Match == true)
-  {
-    return STATE_SCAN_VALID;
-  }
-  else
-  {
-    return STATE_SCAN_INVALID;
-  }
+ return STATE_SCAN_INVALID;
 }
 
 //------------------------------------------------------------------------------------
@@ -154,7 +152,7 @@ void updateState(byte aState)
       }
       break;
     case STATE_SCAN_VALID:
-      if (currentState = STATE_ADDED_CARD)
+      if (currentState == STATE_ADDED_CARD)
       {
         return;
       }
@@ -204,6 +202,8 @@ void setup()
 
   pinMode(REDPIN, OUTPUT);
   pinMode(GREENPIN, OUTPUT);
+
+  Serial.begin(9600);
 }
 
 void loop() 
