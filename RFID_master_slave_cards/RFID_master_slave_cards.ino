@@ -13,6 +13,7 @@
 #define STATE_SCAN_VALID    4
 #define STATE_SCAN_MASTER   5
 #define STATE_ADDED_CARD    6
+#define STATE_REMOVED_CARD  7
 
 #define REDPIN 6
 #define GREENPIN 7
@@ -94,6 +95,36 @@ void addReadCard()
 }
 
 //------------------------------------------------------------------------------------
+void removeReadCard() 
+{     
+  int cardIndex;
+  int index;
+  boolean found = false;
+  
+  for(cardIndex = 0; cardIndex < cardsStored; cardIndex++)
+  {
+    if (found == true)
+    {
+      for(index = 0; index < 4; index++)
+      {
+        cardArr[cardIndex-1][index] = cardArr[cardIndex][index];
+        cardArr[cardIndex][index] = 0;
+      }
+    }
+    
+    if ((memcmp(readCard, cardArr[cardIndex], 4)) == 0)
+    {
+      found = true;
+    }
+  }
+
+  if (found == true)
+  {
+    cardsStored--;
+  }
+}
+
+//------------------------------------------------------------------------------------
 void updateState(byte aState)
 {
   if (aState == currentState)
@@ -139,6 +170,10 @@ void updateState(byte aState)
         digitalWrite(REDPIN, LOW);
         digitalWrite(GREENPIN, HIGH);
       }
+      else if (currentState == STATE_REMOVED_CARD)
+      {
+        return;
+      }
       else
       {
         lcd.clear();
@@ -152,19 +187,35 @@ void updateState(byte aState)
       }
       break;
     case STATE_SCAN_VALID:
-      if (currentState == STATE_ADDED_CARD)
+      if (currentState == STATE_SCAN_MASTER)
+      {
+        removeReadCard();
+        aState = STATE_REMOVED_CARD;
+        
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("Card Scanned");
+        lcd.setCursor(0,1);
+        lcd.print("Card Removed");
+        StateWaitTime = 2000;
+        digitalWrite(REDPIN, LOW);
+        digitalWrite(GREENPIN, HIGH);
+      }
+      else if (currentState == STATE_ADDED_CARD)
       {
         return;
       }
-
-      lcd.clear();
-      lcd.setCursor(0,0);
-      lcd.print("Card Scanned");
-      lcd.setCursor(0,1);
-      lcd.print("valid Card");
-      StateWaitTime = 2000;
-      digitalWrite(REDPIN, LOW);
-      digitalWrite(GREENPIN, HIGH);
+      else
+      {
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("Card Scanned");
+        lcd.setCursor(0,1);
+        lcd.print("valid Card");
+        StateWaitTime = 2000;
+        digitalWrite(REDPIN, LOW);
+        digitalWrite(GREENPIN, HIGH);
+      }
       break;
     case STATE_SCAN_MASTER:
       lcd.clear();
