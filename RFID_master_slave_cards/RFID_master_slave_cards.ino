@@ -127,7 +127,7 @@ void updateState(byte aState)
       digitalWrite(GREENPIN, LOW);
       break;
     case STATE_SCAN_INVALID:
-      if (currentState = STATE_SCAN_MASTER)
+      if (currentState == STATE_SCAN_MASTER)
       {
         addReadCard();
         aState = STATE_ADDED_CARD;
@@ -182,7 +182,7 @@ void updateState(byte aState)
       break;
   }
 
-  /* lcd.clear();
+  /*lcd.clear();
   lcd.setCursor(0,0);
   lcd.print(aState);
   lcd.setCursor(0,1);
