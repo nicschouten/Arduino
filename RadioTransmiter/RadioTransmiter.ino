@@ -1,28 +1,24 @@
-#include <VirtualWire.h>
+#include <RH_ASK.h>
+#include <SPI.h>
 
-const int BitPerSec = 2000;
-const int DataPin   = 2;
-const int InputPin  = A0;
+RH_ASK driver;
 
-uint8_t* Data;
-int InputValue;
+const int PotInputPin = A0;
+uint8_t *data;
+uint8_t InputValue;
 
 void setup()
 {
-  vw_set_ptt_inverted(true);
-  vw_setup(BitPerSec); 
-  vw_set_tx_pin(DataPin);
+  driver.init();
 }
 
 void loop()
 {
-  InputValue = analogRead(InputPin);
+  InputValue = analogRead(PotInputPin)/4;
+
+  data = &InputValue;
     
-  Data[0] = 25;
-  
-  vw_send(Data, 1);
-  vw_wait_tx();
-
-  delay(10);
+  driver.send(data, sizeof(InputValue));
+  driver.waitPacketSent();
+  delay(200);
 }
-
