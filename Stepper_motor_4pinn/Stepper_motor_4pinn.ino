@@ -4,36 +4,6 @@ const int coil03 = 4;
 const int coil04 = 5;
 
 //----------------------------------------------------------------------------
-void setup()
-{
-  pinMode(coil01, OUTPUT);
-  pinMode(coil02, OUTPUT);
-  pinMode(coil03, OUTPUT);
-  pinMode(coil04, OUTPUT);
-}
-
-//----------------------------------------------------------------------------
-void loop()
-{
-  Step_ClockWise(4200, 1, true);
-  void Coiloff();
-  delay(1000);
-  
-  Step_CounterClockWise(4200, 1, true);
-  void Coiloff();
-  delay(1000);
-  
-  Step_ClockWise(2100, 2, false);
-  void Coiloff();
-  delay(1000);
-  
-  Step_CounterClockWise(2100, 2, false);
-  void Coiloff();
-  delay(1000);
-  
-}
-
-//----------------------------------------------------------------------------
 void Step_ClockWise(int steps, int off_time, boolean dohalfsteps)
 {
   int StepIndex;
@@ -173,4 +143,34 @@ void Coiloff()
   digitalWrite(coil02, LOW);
   digitalWrite(coil03, LOW);
   digitalWrite(coil04, LOW);
+}
+
+//----------------------------------------------------------------------------
+void setup()
+{
+  pinMode(coil01, OUTPUT);
+  pinMode(coil02, OUTPUT);
+  pinMode(coil03, OUTPUT);
+  pinMode(coil04, OUTPUT);
+}
+
+//----------------------------------------------------------------------------
+void loop()
+{
+  Step_ClockWise(4200, 2, true);
+  void Coiloff();
+  delay(1000);
+  
+  Step_CounterClockWise(4200, 2, true);
+  void Coiloff();
+  delay(1000);
+  
+  Step_ClockWise(2100, 4, false);
+  void Coiloff();
+  delay(1000);
+  
+  Step_CounterClockWise(2100, 4, false);
+  void Coiloff();
+  delay(1000);
+  
 }
